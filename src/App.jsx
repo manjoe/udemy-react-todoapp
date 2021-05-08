@@ -20,6 +20,13 @@ export const App = () => {
     newTodos.splice(index, 1);
     setIncompleteTodos(newTodos);
   };
+  const onClickComplete = (index) => {
+    const newIncompleteTodos = [...incompleteTodos];
+    newIncompleteTodos.splice(index, 1);
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
+  };
   return (
     <>
       <div className="input-area">
@@ -37,7 +44,13 @@ export const App = () => {
             return (
               <div key={todo} className="list-row">
                 <li>{todo}</li>
-                <button>完了</button>
+                <button
+                  onClick={() => {
+                    onClickComplete(index);
+                  }}
+                >
+                  完了
+                </button>
                 {/* <button onClick={onClickDelete(index)}>削除</button> */}
                 {/* 上記の書き方だと、読み込まれたときにonClickDeleteが実行されてしまう。
                 そのため、下記のようにアロー関数で囲むと、クリックしたときに実行されるようになる */}
